@@ -30,12 +30,9 @@ int main() {
 
         float deltaTime = clock.restart().asSeconds();
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-            position.x -= JOHN_SPEED * deltaTime;
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-            position.x += JOHN_SPEED * deltaTime;
-        }
+        int direction {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)};
+
+        position.x += JOHN_SPEED * direction * deltaTime;
 
         johnSprite.setPosition(position);
 
