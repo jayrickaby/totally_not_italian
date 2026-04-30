@@ -5,16 +5,22 @@
 int main() {
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "Totally Not Italian");
 
+    sf::Texture johnTexture("assets/textures/john/sheet_john_main.png");
+    sf::Sprite johnSprite{johnTexture};
+
+    sf::IntRect johnIdleRect({0,0},{24,24});
+    johnSprite.setTextureRect(johnIdleRect);
+
     while (window.isOpen()) {
         while (const std::optional event{window.pollEvent()})
         {
-            // Close window: exit
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
         }
 
         window.clear();
+        window.draw(johnSprite);
         window.display();
     }
 
