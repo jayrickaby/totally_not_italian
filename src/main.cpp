@@ -8,6 +8,8 @@ int main() {
 
     window.setView(camera);
 
+    const float JOHN_SPEED {0.25};
+
     sf::Texture johnTexture("assets/textures/john/sheet_john_main.png");
     sf::Sprite johnSprite{johnTexture};
 
@@ -20,6 +22,13 @@ int main() {
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+            johnSprite.setPosition({johnSprite.getPosition().x - JOHN_SPEED, johnSprite.getPosition().y});
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+            johnSprite.setPosition({johnSprite.getPosition().x + JOHN_SPEED, johnSprite.getPosition().y});
         }
 
         window.clear();
