@@ -1,5 +1,6 @@
 #include <SFML/Window.hpp>
 
+#include "Objects/Player.h"
 #include "SFML/Graphics.hpp"
 
 int main() {
@@ -8,15 +9,7 @@ int main() {
 
     window.setView(camera);
 
-    const float JOHN_SPEED {50.f};
-
-    sf::Texture johnTexture("assets/textures/john/sheet_john_main.png");
-    sf::Sprite johnSprite{johnTexture};
-
-    sf::IntRect johnIdleRect({0,0},{24,24});
-    johnSprite.setTextureRect(johnIdleRect);
-
-    sf::Vector2f position({0,0});
+    Player john;
 
     sf::Clock clock;
 
@@ -30,14 +23,10 @@ int main() {
 
         float deltaTime = clock.restart().asSeconds();
 
-        int direction {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)};
-
-        position.x += JOHN_SPEED * direction * deltaTime;
-
-        johnSprite.setPosition(position);
+        john.update(deltaTime);
 
         window.clear();
-        window.draw(johnSprite);
+        john.draw(window);
         window.display();
     }
 
