@@ -1,3 +1,3 @@
-add_executable(another_mario_prototype main.cpp
+add_executable(totally_not_italian main.cpp
         )
 
