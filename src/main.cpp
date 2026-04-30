@@ -16,6 +16,8 @@ int main() {
     sf::IntRect johnIdleRect({0,0},{24,24});
     johnSprite.setTextureRect(johnIdleRect);
 
+    sf::Vector2f position({0,0});
+
     sf::Clock clock;
 
     while (window.isOpen()) {
@@ -29,11 +31,13 @@ int main() {
         float deltaTime = clock.restart().asSeconds();
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-            johnSprite.setPosition({johnSprite.getPosition().x - JOHN_SPEED * deltaTime, johnSprite.getPosition().y});
+            position.x -= JOHN_SPEED * deltaTime;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-            johnSprite.setPosition({johnSprite.getPosition().x + JOHN_SPEED * deltaTime, johnSprite.getPosition().y});
+            position.x += JOHN_SPEED * deltaTime;
         }
+
+        johnSprite.setPosition(position);
 
         window.clear();
         window.draw(johnSprite);
