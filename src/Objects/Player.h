@@ -17,15 +17,13 @@ private:
     // Appearance
     sf::Texture texture;
     sf::Sprite sprite;
-
     sf::IntRect johnIdleRect;
 
 
     // Physics
     const float SPEED;
-
     int direction;
-    sf::Vector2f position;
+    sf::FloatRect boundingBox;
 };
 
 
