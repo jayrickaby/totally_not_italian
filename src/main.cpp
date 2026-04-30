@@ -4,6 +4,9 @@
 
 int main() {
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "Totally Not Italian");
+    sf::View camera({0,0}, {256,144});
+
+    window.setView(camera);
 
     sf::Texture johnTexture("assets/textures/john/sheet_john_main.png");
     sf::Sprite johnSprite{johnTexture};
