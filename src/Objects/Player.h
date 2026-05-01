@@ -5,7 +5,14 @@
 #ifndef TOTALLY_NOT_ITALIAN_PLAYER_H
 #define TOTALLY_NOT_ITALIAN_PLAYER_H
 #include "SFML/Graphics.hpp"
+#include <map>
 
+struct Animation {
+    std::vector<sf::IntRect> frames;
+    float frameDuration = 1;
+    float frameTimer = 0;
+    signed int currentFrame = 0;
+};
 
 class Player {
 public:
@@ -17,8 +24,13 @@ private:
     // Appearance
     sf::Texture texture;
     sf::Sprite sprite;
-    sf::IntRect johnIdleRect;
 
+    std::map<std::string, Animation> animations;
+    std::string currentAnimation;
+    std::string defaultAnimation;
+
+    void playAnimation(const std::string& anim);
+    void animate(float deltaTime);
 
     // Physics
     const float SPEED;
