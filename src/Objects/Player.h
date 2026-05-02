@@ -34,8 +34,15 @@ private:
 
     // Physics
     const float SPEED;
+    const float GRAVITY;
+    const float JUMP_STRENGTH;
+
+    bool isGrounded;
+
     int direction;
+
     sf::FloatRect boundingBox;
+    sf::Vector2f velocity;
 };
 
 

@@ -12,8 +12,12 @@ Player::Player() :
     texture("assets/textures/john/sheet_john_main.png"),
     sprite(texture),
     SPEED(50.f),
+    GRAVITY(900),
+    JUMP_STRENGTH(200),
+    isGrounded(false),
     direction(0),
-    boundingBox({0.f,0.f}, {24.f,24.f}) {
+    boundingBox({0.f,0.f}, {24.f,24.f}),
+    velocity({0,0}){
 
     Animation idle;
     idle.frames.emplace_back(sf::IntRect({0,0},{24,24}));
@@ -27,15 +31,21 @@ Player::Player() :
     walk.frameDuration = 0.25;
     animations.emplace("walk", walk);
 
+    Animation jump;
+    jump.frames.emplace_back(sf::IntRect({96,0}, {24,24}));
+    animations.emplace("jump", jump);
+
     defaultAnimation = "idle";
 
     sprite.setOrigin(boundingBox.getCenter());
 }
 
 void Player::update(float deltaTime) {
+    // X DIRECTION
     direction = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
 
-    boundingBox.position.x += SPEED * direction * deltaTime;
+
+    velocity.x = SPEED * direction;
     sprite.setPosition({boundingBox.position.x + (boundingBox.size.x / 2), boundingBox.position.y + (boundingBox.size.y / 2)});
 
     if (direction != 0) {
@@ -46,6 +56,32 @@ void Player::update(float deltaTime) {
         playAnimation("idle");
     }
 
+    // Y DIRECTION
+    isGrounded = false;
+    constexpr float GROUND_LEVEL {0};
+
+    if (boundingBox.position.y >= GROUND_LEVEL) {
+        isGrounded = true;
+        velocity.y = 0;
+        boundingBox.position.y = GROUND_LEVEL;
+    }
+
+    const bool INITIATE_JUMP {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)};
+
+    if (isGrounded && INITIATE_JUMP) {
+        velocity.y -= JUMP_STRENGTH;
+    }
+    else if (!isGrounded) {
+        playAnimation("jump");
+    }
+
+    velocity.y += GRAVITY * deltaTime;
+
+
+
+    // Finalising
+    boundingBox.position.x += velocity.x * deltaTime;
+    boundingBox.position.y += velocity.y * deltaTime;
     animate(deltaTime);
 }
 
