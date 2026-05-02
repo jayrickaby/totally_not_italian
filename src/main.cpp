@@ -3,6 +3,7 @@
 #include "Objects/Player.h"
 #include "SFML/Graphics.hpp"
 
+
 int main() {
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "Totally Not Italian");
     sf::View camera({0,0}, {256,144});
@@ -11,17 +12,10 @@ int main() {
 
     Player john;
 
-    sf::Texture bedroomSheet("assets/textures/area/sheet_bedroom.png");
-    sf::IntRect floorRect({0,0}, {16,16});
+    sf::RectangleShape floor;
+    floor.setSize({256,16});
+    floor.setPosition({-128,24});
 
-    std::vector<sf::Sprite> floor;
-    for (int i = 0; i < 16; i++) {
-        sf::Sprite spr(bedroomSheet);
-        spr.setTextureRect(floorRect);
-        spr.setPosition({-128.f + (16.f*i), 24.f});
-
-        floor.emplace_back(spr);
-    }
 
     sf::Clock clock;
 
@@ -38,9 +32,7 @@ int main() {
 
         window.clear();
         john.draw(window);
-        for (const auto& tile : floor ) {
-            window.draw(tile);
-        }
+        window.draw(floor);
 
         window.display();
     }
