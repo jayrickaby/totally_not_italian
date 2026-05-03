@@ -57,27 +57,29 @@ void Player::update(float deltaTime) {
     }
 
     // Y DIRECTION
+    /*
     isGrounded = false;
     constexpr float GROUND_LEVEL {0};
+
 
     if (boundingBox.position.y >= GROUND_LEVEL) {
         isGrounded = true;
         velocity.y = 0;
         boundingBox.position.y = GROUND_LEVEL;
     }
+    */
 
     const bool INITIATE_JUMP {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)};
 
     if (isGrounded && INITIATE_JUMP) {
         velocity.y -= JUMP_STRENGTH;
+        isGrounded = false;
     }
     else if (!isGrounded) {
         playAnimation("jump");
     }
 
     velocity.y += GRAVITY * deltaTime;
-
-
 
     // Finalising
     boundingBox.position.x += velocity.x * deltaTime;
@@ -87,6 +89,38 @@ void Player::update(float deltaTime) {
 
 void Player::draw(sf::RenderTarget& target) {
     target.draw(sprite);
+}
+
+void Player::checkAndCollide(const sf::FloatRect& collider) {
+    const auto v {boundingBox.findIntersection(collider)};
+
+    if (!v.has_value()) {
+        return;
+    }
+
+    const sf::FloatRect overlap {v.value()};
+
+    if (overlap.size.x < overlap.size.y) {
+        if (velocity.x > 0) {
+            boundingBox.position.x -= overlap.size.x;
+        }
+        else if (velocity.x < 0) {
+            boundingBox.position.x += overlap.size.x;
+        }
+
+        velocity.x = 0;
+    }
+    else if (overlap.size.y < overlap.size.x) {
+        if (velocity.y > 0){
+            boundingBox.position.y -= overlap.size.y;
+            isGrounded = true;
+            std::cout << overlap.size.y << std::endl;
+        } else if (velocity.y < 0){
+            boundingBox.position.y += overlap.size.y;
+        }
+
+        velocity.y = 0;
+    }
 }
 
 void Player::playAnimation(const std::string& anim) {

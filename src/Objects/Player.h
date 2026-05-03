@@ -20,6 +20,7 @@ public:
     void update(float deltaTime);
     void draw(sf::RenderTarget& target);
 
+    void checkAndCollide(const sf::FloatRect& collider);
 private:
     // Appearance
     sf::Texture texture;

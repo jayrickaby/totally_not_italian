@@ -29,6 +29,7 @@ int main() {
         float deltaTime = clock.restart().asSeconds();
 
         john.update(deltaTime);
+        john.checkAndCollide(floor.getGlobalBounds());
 
         window.clear();
         john.draw(window);
