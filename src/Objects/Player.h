@@ -7,6 +7,7 @@
 #include "SFML/Graphics.hpp"
 #include <map>
 
+#include "SFML/Audio.hpp"
 struct Animation {
     std::vector<sf::IntRect> frames;
     float frameDuration = 1;
@@ -44,6 +45,10 @@ private:
 
     sf::FloatRect boundingBox;
     sf::Vector2f velocity;
+
+    // Sound
+    sf::SoundBuffer buf_jump;
+    sf::Sound snd_jump;
 };
 
 

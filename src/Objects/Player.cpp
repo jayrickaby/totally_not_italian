@@ -17,7 +17,9 @@ Player::Player() :
     isGrounded(false),
     direction(0),
     boundingBox({0.f,0.f}, {24.f,24.f}),
-    velocity({0,0}){
+    velocity({0,0}),
+buf_jump("assets/sounds/jump.mp3"),
+snd_jump(buf_jump){
 
     Animation idle;
     idle.frames.emplace_back(sf::IntRect({0,0},{24,24}));
@@ -74,6 +76,7 @@ void Player::update(float deltaTime) {
     if (isGrounded && INITIATE_JUMP) {
         velocity.y -= JUMP_STRENGTH;
         isGrounded = false;
+        snd_jump.play();
     }
     else if (!isGrounded) {
         playAnimation("jump");
@@ -114,7 +117,6 @@ void Player::checkAndCollide(const sf::FloatRect& collider) {
         if (velocity.y > 0){
             boundingBox.position.y -= overlap.size.y;
             isGrounded = true;
-            std::cout << overlap.size.y << std::endl;
         } else if (velocity.y < 0){
             boundingBox.position.y += overlap.size.y;
         }
