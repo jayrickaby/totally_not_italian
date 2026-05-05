@@ -1,6 +1,7 @@
 #include <SFML/Window.hpp>
 
 #include "Objects/Entity.h"
+#include "Objects/Goomba.h"
 #include "Objects/Player.h"
 #include "SFML/Graphics.hpp"
 #include "Types/Animation.h"
@@ -13,11 +14,7 @@ int main() {
     window.setView(camera);
 
     Player john;
-    Entity goomba;
-
-    Animation goombaIdle;
-    goombaIdle.frames.emplace_back(sf::IntRect({0,0}, {16,16}));
-    goomba.addAnimation("idle", goombaIdle);
+    Goomba goomba;
 
     sf::RectangleShape floor;
     floor.setSize({256,16});
@@ -40,7 +37,7 @@ int main() {
         goomba.checkAndCollide(floor.getGlobalBounds());
         john.checkAndCollide(floor.getGlobalBounds());
 
-        window.clear();
+        window.clear(sf::Color({192,192,255}));
         goomba.draw(window);
         john.draw(window);
         window.draw(floor);
