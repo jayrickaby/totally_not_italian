@@ -18,10 +18,7 @@ Entity::Entity() :
     isGrounded(false),
     direction(0),
     boundingBox({0.f,0.f}, sprite.getLocalBounds().size),
-    velocity({0,0}){
-
-    sprite.setOrigin(boundingBox.getCenter());
-}
+    velocity({0,0}){}
 
 void Entity::update(float deltaTime) {
     moveX(deltaTime);
@@ -51,7 +48,19 @@ void Entity::moveY(float deltaTime) {
 }
 
 void Entity::draw(sf::RenderTarget& target) {
+    // sf::RectangleShape bbRect;
+    // bbRect.setSize(boundingBox.size);
+    // bbRect.setPosition(boundingBox.position);
+    // bbRect.setFillColor(sf::Color::Blue);
+    // target.draw(bbRect);
+
     target.draw(sprite);
+
+    // sf::CircleShape originCirc;
+    // originCirc.setRadius(2);
+    // originCirc.setPosition({sprite.getPosition().x + sprite.getOrigin().x, sprite.getPosition().y + sprite.getOrigin().y});
+    // originCirc.setFillColor(sf::Color::Red);
+    // target.draw(originCirc);
 }
 
 void Entity::addAnimation(const std::string& name, const Animation& animation) {
@@ -128,9 +137,6 @@ void Entity::animate(float deltaTime) {
         sprite.setScale({direction, 1});
     }
 
-    // Make it center properly
-    sprite.setPosition({boundingBox.position.x + (boundingBox.size.x / 2), boundingBox.position.y + (boundingBox.size.y / 2)});
-
     if (currentAnimation.empty()) {
         currentAnimation = defaultAnimation;
     }
@@ -144,4 +150,11 @@ void Entity::animate(float deltaTime) {
     }
 
     sprite.setTextureRect(curAnim->frames[curAnim->currentFrame]);
+
+    // Make sure bounding box accurate to sprite
+    boundingBox.size = sf::Vector2f(sprite.getTextureRect().size);
+
+    // Make sure sprite flips correctly when turning
+    sprite.setOrigin({(boundingBox.size.x/2), (boundingBox.size.y/2)});
+    sprite.setPosition(boundingBox.getCenter());
 }
