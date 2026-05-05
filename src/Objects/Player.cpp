@@ -11,6 +11,7 @@ Player::Player() :
     SPEED(50.f),
     JUMP_STRENGTH(200),
 buf_jump("assets/sounds/jump.mp3"),
+tryToJump(false),
 snd_jump(buf_jump){
 
     texture.loadFromFile("assets/textures/john/sheet_john_main.png");
@@ -33,8 +34,19 @@ snd_jump(buf_jump){
 
 }
 
-void Player::preMoveX(float deltaTime) {
-    direction = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
+void Player::update(float deltaTime) {
+    handleInput();
+    Entity::update(deltaTime);
+}
+
+void Player::handleInput() {
+    bool keyAHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
+    bool keyDHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D);
+    bool keySpaceHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
+
+    direction = keyDHeld - keyAHeld;
+
+    keySpaceHeld ? tryToJump = true : tryToJump = false;
 }
 
 void Player::preMoveY(float deltaTime) {
@@ -46,11 +58,11 @@ void Player::preMoveY(float deltaTime) {
         playAnimation("idle");
     }
 
-    const bool INITIATE_JUMP {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)};
 
-    if (isGrounded && INITIATE_JUMP) {
+    if (isGrounded && tryToJump) {
         velocity.y -= JUMP_STRENGTH;
         isGrounded = false;
+        tryToJump = false;
         snd_jump.play();
     }
     else if (!isGrounded) {

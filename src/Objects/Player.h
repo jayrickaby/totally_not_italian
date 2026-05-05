@@ -14,16 +14,23 @@ struct Animation;
 class Player : public Entity {
 public:
     Player();
+
+    void update(float deltaTime);
+
 private:
     // Physics
     const float SPEED;
     const float JUMP_STRENGTH;
 
+    // Logic
+    bool tryToJump;
+
+    void handleInput();
+
     // Sound
     sf::SoundBuffer buf_jump;
     sf::Sound snd_jump;
 protected:
-    void preMoveX(float deltaTime) override;
     void preMoveY(float deltaTime) override;
 };
 
