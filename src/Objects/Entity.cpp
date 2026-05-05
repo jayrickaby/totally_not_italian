@@ -11,7 +11,7 @@
 
 
 Entity::Entity() :
-    texture("assets/textures/enemies/sheet_goomba.png"),
+    texture("assets/textures/dev/missing.png"),
     sprite(texture),
     SPEED(50.f),
     GRAVITY(900),
