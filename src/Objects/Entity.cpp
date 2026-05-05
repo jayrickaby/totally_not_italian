@@ -25,19 +25,21 @@ Entity::Entity() :
 
 void Entity::update(float deltaTime) {
     // X DIRECTION
-    velocity.x = SPEED * direction;
-    sprite.setPosition({boundingBox.position.x + (boundingBox.size.x / 2), boundingBox.position.y + (boundingBox.size.y / 2)});
-
-    if (direction != 0) {
-        sprite.setScale({direction, 1});
-    }
-
-    velocity.y += GRAVITY * deltaTime;
+    moveX(deltaTime);
+    moveY(deltaTime);
 
     // Finalising
-    boundingBox.position.x += velocity.x * deltaTime;
-    boundingBox.position.y += velocity.y * deltaTime;
     animate(deltaTime);
+}
+
+void Entity::moveX(float deltaTime) {
+    velocity.x = SPEED * direction;
+    boundingBox.position.x += velocity.x * deltaTime;
+}
+
+void Entity::moveY(float deltaTime) {
+    velocity.y += GRAVITY * deltaTime;
+    boundingBox.position.y += velocity.y * deltaTime;
 }
 
 void Entity::draw(sf::RenderTarget& target) {
@@ -89,6 +91,11 @@ void Entity::checkAndCollide(const sf::FloatRect& collider) {
 }
 
 void Entity::playAnimation(const std::string& name) {
+    if (animations.empty()) {
+        std::cout << "No animations!" << std::endl;
+        return;
+    }
+
     if (defaultAnimation.empty()) {
         defaultAnimation = animations.begin()->first;
     }
@@ -109,6 +116,13 @@ void Entity::playAnimation(const std::string& name) {
 }
 
 void Entity::animate(float deltaTime) {
+    if (direction != 0) {
+        sprite.setScale({direction, 1});
+    }
+
+    // Make it center properly
+    sprite.setPosition({boundingBox.position.x + (boundingBox.size.x / 2), boundingBox.position.y + (boundingBox.size.y / 2)});
+
     if (currentAnimation.empty()) {
         currentAnimation = defaultAnimation;
     }

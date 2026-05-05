@@ -32,14 +32,13 @@ private:
     // Physics
     const float SPEED;
     const float GRAVITY;
-
     bool isGrounded;
-
     int direction;
-
     sf::FloatRect boundingBox;
     sf::Vector2f velocity;
 
+    void moveX(float deltaTime);
+    void moveY(float deltaTime);
 };
 
 
