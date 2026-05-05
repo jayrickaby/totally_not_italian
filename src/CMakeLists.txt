@@ -4,5 +4,7 @@ add_executable(totally_not_italian main.cpp
         Objects/Goomba.cpp
         Objects/Goomba.h
         Types/Animation.h
+        Objects/Entity.cpp
+        Objects/Entity.h
 )
 
