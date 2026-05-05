@@ -1,7 +1,9 @@
 #include <SFML/Window.hpp>
 
+#include "Objects/Entity.h"
 #include "Objects/Player.h"
 #include "SFML/Graphics.hpp"
+#include "Types/Animation.h"
 
 
 int main() {
@@ -10,7 +12,11 @@ int main() {
 
     window.setView(camera);
 
-    Player john;
+    Entity goomba;
+
+    Animation goombaIdle;
+    goombaIdle.frames.emplace_back(sf::IntRect({0,0}, {16,16}));
+    goomba.addAnimation("idle", goombaIdle);
 
     sf::RectangleShape floor;
     floor.setSize({256,16});
@@ -28,11 +34,11 @@ int main() {
 
         float deltaTime = clock.restart().asSeconds();
 
-        john.update(deltaTime);
-        john.checkAndCollide(floor.getGlobalBounds());
+        goomba.update(deltaTime);
+        goomba.checkAndCollide(floor.getGlobalBounds());
 
         window.clear();
-        john.draw(window);
+        goomba.draw(window);
         window.draw(floor);
 
         window.display();

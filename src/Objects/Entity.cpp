@@ -11,13 +11,13 @@
 
 
 Entity::Entity() :
-    texture("assets/textures/john/sheet_john_main.png"),
+    texture("assets/textures/enemies/sheet_goomba.png"),
     sprite(texture),
     SPEED(50.f),
     GRAVITY(900),
     isGrounded(false),
     direction(0),
-    boundingBox({0.f,0.f}, {24.f,24.f}),
+    boundingBox({0.f,0.f}, sprite.getLocalBounds().size),
     velocity({0,0}){
 
     sprite.setOrigin(boundingBox.getCenter());
@@ -42,6 +42,19 @@ void Entity::update(float deltaTime) {
 
 void Entity::draw(sf::RenderTarget& target) {
     target.draw(sprite);
+}
+
+void Entity::addAnimation(const std::string& name, const Animation& animation) {
+    if (animation.frames.empty()) {
+        std::cout << "Can't add empty \'" << name << "\' animation!" << std::endl;
+        return;
+    }
+
+    if (animations.empty()) {
+        defaultAnimation = name;
+    }
+
+    animations.emplace(name, animation);
 }
 
 void Entity::checkAndCollide(const sf::FloatRect& collider) {
@@ -75,27 +88,31 @@ void Entity::checkAndCollide(const sf::FloatRect& collider) {
     }
 }
 
-void Entity::playAnimation(const std::string& anim) {
+void Entity::playAnimation(const std::string& name) {
     if (defaultAnimation.empty()) {
         defaultAnimation = animations.begin()->first;
     }
 
-    bool validAnim{animations.contains(anim)};
+    bool validAnim{animations.contains(name)};
 
-    if (currentAnimation != anim && validAnim) {
+    if (currentAnimation != name && validAnim) {
         Animation* curAnim {&animations[currentAnimation]};
         curAnim->currentFrame = 0;
         curAnim->frameTimer = 0;
 
-        currentAnimation = anim;
+        currentAnimation = name;
     }
     else if (!validAnim) {
-        std::cout << "Animation not found: " << anim << std::endl;
+        std::cout << "Animation not found: " << name << std::endl;
         currentAnimation = defaultAnimation;
     }
 }
 
 void Entity::animate(float deltaTime) {
+    if (currentAnimation.empty()) {
+        currentAnimation = defaultAnimation;
+    }
+
     Animation* curAnim {&animations[currentAnimation]};
 
     curAnim->frameTimer += deltaTime;

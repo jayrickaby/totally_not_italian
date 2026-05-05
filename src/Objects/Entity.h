@@ -14,6 +14,8 @@ public:
     Entity();
     void update(float deltaTime);
     void draw(sf::RenderTarget& target);
+    void addAnimation(const std::string& name, const Animation& animation);
+    void playAnimation(const std::string& name);
 
     void checkAndCollide(const sf::FloatRect& collider);
 private:
@@ -25,7 +27,6 @@ private:
     std::string currentAnimation;
     std::string defaultAnimation;
 
-    void playAnimation(const std::string& anim);
     void animate(float deltaTime);
 
     // Physics
