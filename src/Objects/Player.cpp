@@ -14,7 +14,6 @@ buf_jump("assets/sounds/jump.mp3"),
 snd_jump(buf_jump){
 
     texture.loadFromFile("assets/textures/john/sheet_john_main.png");
-    sprite.setTexture(texture);
 
     Animation idle;
     idle.frames.emplace_back(sf::IntRect({0,0},{24,24}));
