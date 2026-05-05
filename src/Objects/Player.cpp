@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include "../Types/Animation.h"
 
 #include <algorithm>
 #include <iostream>
@@ -57,19 +58,6 @@ void Player::update(float deltaTime) {
     else {
         playAnimation("idle");
     }
-
-    // Y DIRECTION
-    /*
-    isGrounded = false;
-    constexpr float GROUND_LEVEL {0};
-
-
-    if (boundingBox.position.y >= GROUND_LEVEL) {
-        isGrounded = true;
-        velocity.y = 0;
-        boundingBox.position.y = GROUND_LEVEL;
-    }
-    */
 
     const bool INITIATE_JUMP {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)};
 

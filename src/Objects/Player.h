@@ -8,12 +8,8 @@
 #include <map>
 
 #include "SFML/Audio.hpp"
-struct Animation {
-    std::vector<sf::IntRect> frames;
-    float frameDuration = 1;
-    float frameTimer = 0;
-    signed int currentFrame = 0;
-};
+
+struct Animation;
 
 class Player {
 public:
