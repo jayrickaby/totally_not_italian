@@ -24,20 +24,20 @@ Entity::Entity() :
 }
 
 void Entity::update(float deltaTime) {
-    // X DIRECTION
     moveX(deltaTime);
     moveY(deltaTime);
 
-    // Finalising
     animate(deltaTime);
 }
 
 void Entity::moveX(float deltaTime) {
+    preMoveX(deltaTime);
     velocity.x = SPEED * direction;
     boundingBox.position.x += velocity.x * deltaTime;
 }
 
 void Entity::moveY(float deltaTime) {
+    preMoveY(deltaTime);
     velocity.y += GRAVITY * deltaTime;
     boundingBox.position.y += velocity.y * deltaTime;
 }

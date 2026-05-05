@@ -39,6 +39,9 @@ private:
 
     void moveX(float deltaTime);
     void moveY(float deltaTime);
+
+    virtual void preMoveX(float deltaTime);
+    virtual void preMoveY(float deltaTime);
 };
 
 
