@@ -18,7 +18,7 @@ public:
     void playAnimation(const std::string& name);
 
     void checkAndCollide(const sf::FloatRect& collider);
-private:
+protected:
     // Appearance
     sf::Texture texture;
     sf::Sprite sprite;

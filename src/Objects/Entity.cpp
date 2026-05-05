@@ -30,6 +30,14 @@ void Entity::update(float deltaTime) {
     animate(deltaTime);
 }
 
+void Entity::preMoveX(float deltaTime) {
+
+}
+
+void Entity::preMoveY(float deltaTime) {
+
+}
+
 void Entity::moveX(float deltaTime) {
     preMoveX(deltaTime);
     velocity.x = SPEED * direction;
