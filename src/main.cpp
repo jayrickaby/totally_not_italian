@@ -12,6 +12,7 @@ int main() {
 
     window.setView(camera);
 
+    Player john;
     Entity goomba;
 
     Animation goombaIdle;
@@ -35,10 +36,13 @@ int main() {
         float deltaTime = clock.restart().asSeconds();
 
         goomba.update(deltaTime);
+        john.update(deltaTime);
         goomba.checkAndCollide(floor.getGlobalBounds());
+        john.checkAndCollide(floor.getGlobalBounds());
 
         window.clear();
         goomba.draw(window);
+        john.draw(window);
         window.draw(floor);
 
         window.display();

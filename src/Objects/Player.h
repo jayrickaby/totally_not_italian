@@ -4,47 +4,27 @@
 
 #ifndef TOTALLY_NOT_ITALIAN_PLAYER_H
 #define TOTALLY_NOT_ITALIAN_PLAYER_H
-#include "SFML/Graphics.hpp"
-#include <map>
 
+
+#include "Entity.h"
 #include "SFML/Audio.hpp"
 
 struct Animation;
 
-class Player {
+class Player : public Entity {
 public:
     Player();
-    void update(float deltaTime);
-    void draw(sf::RenderTarget& target);
-
-    void checkAndCollide(const sf::FloatRect& collider);
 private:
-    // Appearance
-    sf::Texture texture;
-    sf::Sprite sprite;
-
-    std::map<std::string, Animation> animations;
-    std::string currentAnimation;
-    std::string defaultAnimation;
-
-    void playAnimation(const std::string& anim);
-    void animate(float deltaTime);
-
     // Physics
     const float SPEED;
-    const float GRAVITY;
     const float JUMP_STRENGTH;
-
-    bool isGrounded;
-
-    int direction;
-
-    sf::FloatRect boundingBox;
-    sf::Vector2f velocity;
 
     // Sound
     sf::SoundBuffer buf_jump;
     sf::Sound snd_jump;
+protected:
+    void preMoveX(float deltaTime) override;
+    void preMoveY(float deltaTime) override;
 };
 
 
