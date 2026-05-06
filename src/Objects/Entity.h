@@ -26,20 +26,20 @@ public:
 
     void checkAndCollide(const sf::FloatRect& collider);
 
-    //Setters
-    void setTexture(const std::string& path);
+    // Checker
+    bool isGrounded() const;
+
+    // Getters
+    CollisionSide getCurrentColliding() const;
+    int getDirection() const;
+
+    // Setters
+    void setDirection(int newDirection);
+    void setGrounded(bool state);
     void setSpeed(float newSpeed);
+    void setTexture(const std::string& path);
+
 protected:
-
-    void animate(float deltaTime);
-
-    // Physics
-    bool isGrounded;
-    int direction;
-    sf::FloatRect boundingBox;
-    sf::Vector2f velocity;
-    CollisionSide currentlyColliding;
-
     void moveX(float deltaTime);
     void moveY(float deltaTime);
 
@@ -47,6 +47,10 @@ protected:
     virtual void preMoveY(float deltaTime);
 
     virtual void onCollide();
+
+    // Physics
+    sf::Vector2f velocity;
+
 
 private:
     // Appearance
@@ -57,9 +61,17 @@ private:
     std::string currentAnimation;
     std::string defaultAnimation;
 
+    void animate(float deltaTime);
+
     // Physics
     const float GRAVITY;
+
+    bool grounded;
     float speed;
+    int direction;
+    sf::FloatRect boundingBox;
+    CollisionSide currentlyColliding;
+
 };
 
 

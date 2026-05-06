@@ -7,7 +7,7 @@
 #include "../Types/Animation.h"
 
 Goomba::Goomba() {
-    direction = 1;
+    setDirection(1);
     setSpeed(25.f);
     setTexture("assets/textures/enemies/sheet_goomba.png");
 
@@ -23,7 +23,7 @@ Goomba::Goomba() {
 }
 
 void Goomba::preMoveX(float deltaTime) {
-    if (direction != 0) {
+    if (getDirection() != 0) {
         playAnimation("walk");
     }
     else {
@@ -32,10 +32,12 @@ void Goomba::preMoveX(float deltaTime) {
 }
 
 void Goomba::onCollide() {
+    const CollisionSide currentlyColliding{getCurrentColliding()};
+
     if (currentlyColliding == CollisionSide::Left) {
-        direction = 1;
+         setDirection(1);
     }
     else if (currentlyColliding == CollisionSide::Right) {
-        direction = -1;
+        setDirection(-1);
     }
 }

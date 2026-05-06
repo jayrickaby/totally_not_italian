@@ -58,27 +58,28 @@ void Player::handleInput() {
     const bool keyDHeld {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)};
     const bool keySpaceHeld {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)};
 
-    direction = keyDHeld - keyAHeld;
+    setDirection(keyDHeld - keyAHeld);
 
     keySpaceHeld ? tryToJump = true : tryToJump = false;
 }
 
 void Player::preMoveY(float deltaTime) {
-    if (direction != 0) {
+    if (getDirection() != 0) {
         playAnimation("walk");
     }
     else {
         playAnimation("idle");
     }
 
+    const bool grounded{isGrounded()};
 
-    if (isGrounded && tryToJump) {
+    if (grounded && tryToJump) {
         velocity.y -= JUMP_STRENGTH;
-        isGrounded = false;
+        setGrounded(false);
         tryToJump = false;
         snd_jump.play();
     }
-    else if (!isGrounded) {
+    else if (!grounded) {
         playAnimation("jump");
     }
 }

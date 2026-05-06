@@ -11,7 +11,7 @@
 
 
 Entity::Entity() :
-    isGrounded(false),
+    grounded(false),
     direction(0),
     boundingBox({0.f,0.f}, sprite.getLocalBounds().size),
     velocity({0,0}),
@@ -102,7 +102,7 @@ void Entity::checkAndCollide(const sf::FloatRect& collider) {
     else if (overlap.size.y < overlap.size.x) {
         if (velocity.y > 0){
             boundingBox.position.y -= overlap.size.y;
-            isGrounded = true;
+            grounded = true;
             currentlyColliding = CollisionSide::Bottom;
         } else if (velocity.y < 0){
             boundingBox.position.y += overlap.size.y;
@@ -178,4 +178,24 @@ void Entity::setSpeed(float newSpeed) {
 
 void Entity::setTexture(const std::string& path) {
     texture.loadFromFile(path);
+}
+
+void Entity::setDirection(int newDirection) {
+    direction = newDirection;
+}
+
+int Entity::getDirection() const {
+    return direction;
+}
+
+CollisionSide Entity::getCurrentColliding() const {
+    return currentlyColliding;
+}
+
+bool Entity::isGrounded() const {
+    return grounded;
+}
+
+void Entity::setGrounded(bool state) {
+    grounded = state;
 }
