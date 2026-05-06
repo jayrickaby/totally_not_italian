@@ -8,7 +8,8 @@
 
 Goomba::Goomba() {
     direction = 1;
-    texture.loadFromFile("assets/textures/enemies/sheet_goomba.png");
+    setSpeed(25.f);
+    setTexture("assets/textures/enemies/sheet_goomba.png");
 
     Animation idle;
     idle.frames.emplace_back(sf::IntRect({0,0}, {16,16}));
@@ -19,8 +20,6 @@ Goomba::Goomba() {
     walk.frames.emplace_back(sf::IntRect({32,0}, {16,16}));
     walk.frameDuration = 0.5f;
     addAnimation("walk", walk);
-
-    speed = 25.f;
 }
 
 void Goomba::preMoveX(float deltaTime) {

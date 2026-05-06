@@ -11,14 +11,14 @@
 
 
 Entity::Entity() :
-    texture("assets/textures/dev/missing.png"),
-    sprite(texture),
-    speed(50.f),
-    GRAVITY(900),
     isGrounded(false),
     direction(0),
     boundingBox({0.f,0.f}, sprite.getLocalBounds().size),
-    velocity({0,0}){}
+    velocity({0,0}),
+    texture("assets/textures/dev/missing.png"),
+    sprite(texture),
+    GRAVITY(900),
+    speed(50.f){}
 
 void Entity::update(float deltaTime) {
     moveX(deltaTime);
@@ -170,4 +170,12 @@ void Entity::animate(float deltaTime) {
 
 void Entity::onCollide() {
 
+}
+
+void Entity::setSpeed(float newSpeed) {
+    speed = newSpeed;
+}
+
+void Entity::setTexture(const std::string& path) {
+    texture.loadFromFile(path);
 }

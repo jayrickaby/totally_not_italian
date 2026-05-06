@@ -25,22 +25,17 @@ public:
     void playAnimation(const std::string& name);
 
     void checkAndCollide(const sf::FloatRect& collider);
-protected:
-    // Appearance
-    sf::Texture texture;
-    sf::Sprite sprite;
 
-    std::map<std::string, Animation> animations;
-    std::string currentAnimation;
-    std::string defaultAnimation;
+    //Setters
+    void setTexture(const std::string& path);
+    void setSpeed(float newSpeed);
+protected:
 
     void animate(float deltaTime);
 
     // Physics
-    const float GRAVITY;
     bool isGrounded;
     int direction;
-    float speed;
     sf::FloatRect boundingBox;
     sf::Vector2f velocity;
     CollisionSide currentlyColliding;
@@ -52,6 +47,19 @@ protected:
     virtual void preMoveY(float deltaTime);
 
     virtual void onCollide();
+
+private:
+    // Appearance
+    sf::Texture texture;
+    sf::Sprite sprite;
+
+    std::map<std::string, Animation> animations;
+    std::string currentAnimation;
+    std::string defaultAnimation;
+
+    // Physics
+    const float GRAVITY;
+    float speed;
 };
 
 
