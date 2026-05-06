@@ -16,10 +16,22 @@ int main() {
     Player john;
     Goomba goomba;
 
+    std::vector<sf::RectangleShape> collideables;
+
     sf::RectangleShape floor;
     floor.setSize({256,16});
-    floor.setPosition({-128,24});
+    floor.setPosition({-128,0});
+    collideables.push_back(floor);
 
+    sf::RectangleShape wall1;
+    wall1.setSize({16,16});
+    wall1.setPosition({-128,-16});
+    collideables.push_back(wall1);
+
+    sf::RectangleShape wall2;
+    wall2.setSize({16,16});
+    wall2.setPosition({112,-16});
+    collideables.push_back(wall2);
 
     sf::Clock clock;
 
@@ -34,13 +46,19 @@ int main() {
 
         goomba.update(deltaTime);
         john.update(deltaTime);
-        goomba.checkAndCollide(floor.getGlobalBounds());
-        john.checkAndCollide(floor.getGlobalBounds());
+
+        for (const auto& collideable : collideables) {
+            goomba.checkAndCollide(collideable.getGlobalBounds());
+            john.checkAndCollide(collideable.getGlobalBounds());
+        }
 
         window.clear(sf::Color({192,192,255}));
         goomba.draw(window);
         john.draw(window);
-        window.draw(floor);
+
+        for (const auto& collideable : collideables) {
+            window.draw(collideable);
+        }
 
         window.display();
     }

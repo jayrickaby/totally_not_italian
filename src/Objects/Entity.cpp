@@ -151,6 +151,7 @@ void Entity::animate(float deltaTime) {
 
     sprite.setTextureRect(curAnim->frames[curAnim->currentFrame]);
 
+    // @TODO When adding proper animation support, bounding box is baked into each frame allowing for custom sizes.
     // Make sure bounding box accurate to sprite
     boundingBox.size = sf::Vector2f(sprite.getTextureRect().size);
 
