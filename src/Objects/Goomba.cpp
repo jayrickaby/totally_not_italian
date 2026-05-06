@@ -17,8 +17,10 @@ Goomba::Goomba() {
     Animation walk;
     walk.frames.emplace_back(sf::IntRect({16,0}, {16,16}));
     walk.frames.emplace_back(sf::IntRect({32,0}, {16,16}));
-    walk.frameDuration = 0.5;
+    walk.frameDuration = 0.5f;
     addAnimation("walk", walk);
+
+    speed = 25.f;
 }
 
 void Goomba::preMoveX(float deltaTime) {
@@ -27,5 +29,14 @@ void Goomba::preMoveX(float deltaTime) {
     }
     else {
         playAnimation("idle");
+    }
+}
+
+void Goomba::onCollide() {
+    if (currentlyColliding == CollisionSide::Left) {
+        direction = 1;
+    }
+    else if (currentlyColliding == CollisionSide::Right) {
+        direction = -1;
     }
 }

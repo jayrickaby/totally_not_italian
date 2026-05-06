@@ -13,6 +13,7 @@ public:
 
 protected:
     void preMoveX(float deltaTime) override;
+    void onCollide() override;
 };
 
 

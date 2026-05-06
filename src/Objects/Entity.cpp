@@ -13,7 +13,7 @@
 Entity::Entity() :
     texture("assets/textures/dev/missing.png"),
     sprite(texture),
-    SPEED(50.f),
+    speed(50.f),
     GRAVITY(900),
     isGrounded(false),
     direction(0),
@@ -39,7 +39,7 @@ void Entity::preMoveY(float deltaTime) {
 
 void Entity::moveX(float deltaTime) {
     preMoveX(deltaTime);
-    velocity.x = SPEED * direction;
+    velocity.x = speed * direction;
     boundingBox.position.x += velocity.x * deltaTime;
 }
 
@@ -111,6 +111,8 @@ void Entity::checkAndCollide(const sf::FloatRect& collider) {
 
         velocity.y = 0;
     }
+
+    onCollide();
 }
 
 void Entity::playAnimation(const std::string& name) {
@@ -164,4 +166,8 @@ void Entity::animate(float deltaTime) {
     // Make sure sprite flips correctly when turning
     sprite.setOrigin({(boundingBox.size.x/2), (boundingBox.size.y/2)});
     sprite.setPosition(boundingBox.getCenter());
+}
+
+void Entity::onCollide() {
+
 }

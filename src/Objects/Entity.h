@@ -37,10 +37,10 @@ protected:
     void animate(float deltaTime);
 
     // Physics
-    const float SPEED;
     const float GRAVITY;
     bool isGrounded;
     int direction;
+    float speed;
     sf::FloatRect boundingBox;
     sf::Vector2f velocity;
     CollisionSide currentlyColliding;
@@ -50,6 +50,8 @@ protected:
 
     virtual void preMoveX(float deltaTime);
     virtual void preMoveY(float deltaTime);
+
+    virtual void onCollide();
 };
 
 
