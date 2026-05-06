@@ -8,6 +8,13 @@
 #include <map>
 
 struct Animation;
+enum class CollisionSide {
+    Left,
+    Right,
+    Top,
+    Bottom,
+    None
+};
 
 class Entity {
 public:
@@ -36,6 +43,7 @@ protected:
     int direction;
     sf::FloatRect boundingBox;
     sf::Vector2f velocity;
+    CollisionSide currentlyColliding;
 
     void moveX(float deltaTime);
     void moveY(float deltaTime);

@@ -3,6 +3,9 @@
 //
 
 #include "Player.h"
+
+#include <iostream>
+
 #include "../Types/Animation.h"
 
 
@@ -10,8 +13,8 @@
 Player::Player() :
     SPEED(50.f),
     JUMP_STRENGTH(200),
-buf_jump("assets/sounds/jump.mp3"),
 tryToJump(false),
+buf_jump("assets/sounds/jump.mp3"),
 snd_jump(buf_jump){
 
     texture.loadFromFile("assets/textures/john/sheet_john_main.png");
@@ -36,6 +39,17 @@ snd_jump(buf_jump){
 
 void Player::update(float deltaTime) {
     handleInput();
+
+    // std::string side{""};
+    //
+    // if (currentlyColliding == CollisionSide::Top) side = "top";
+    // else if (currentlyColliding == CollisionSide::Bottom) side = "bottom";
+    // else if (currentlyColliding == CollisionSide::Left) side = "left";
+    // else if (currentlyColliding == CollisionSide::Right) side = "right";
+    // else side = "none";
+    //
+    // std::cout << side << std::endl;
+
     Entity::update(deltaTime);
 }
 

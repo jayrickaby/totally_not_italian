@@ -24,6 +24,8 @@ void Entity::update(float deltaTime) {
     moveX(deltaTime);
     moveY(deltaTime);
 
+    currentlyColliding = CollisionSide::None;
+
     animate(deltaTime);
 }
 
@@ -88,9 +90,11 @@ void Entity::checkAndCollide(const sf::FloatRect& collider) {
     if (overlap.size.x < overlap.size.y) {
         if (velocity.x > 0) {
             boundingBox.position.x -= overlap.size.x;
+            currentlyColliding = CollisionSide::Right;
         }
         else if (velocity.x < 0) {
             boundingBox.position.x += overlap.size.x;
+            currentlyColliding = CollisionSide::Left;
         }
 
         velocity.x = 0;
@@ -99,8 +103,10 @@ void Entity::checkAndCollide(const sf::FloatRect& collider) {
         if (velocity.y > 0){
             boundingBox.position.y -= overlap.size.y;
             isGrounded = true;
+            currentlyColliding = CollisionSide::Bottom;
         } else if (velocity.y < 0){
             boundingBox.position.y += overlap.size.y;
+            currentlyColliding = CollisionSide::Top;
         }
 
         velocity.y = 0;
