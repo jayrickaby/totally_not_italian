@@ -54,9 +54,9 @@ void Player::update(float deltaTime) {
 }
 
 void Player::handleInput() {
-    bool keyAHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
-    bool keyDHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D);
-    bool keySpaceHeld = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
+    const bool keyAHeld {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)};
+    const bool keyDHeld {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)};
+    const bool keySpaceHeld {sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)};
 
     direction = keyDHeld - keyAHeld;
 
