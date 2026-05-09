@@ -6,8 +6,8 @@
 #define TOTALLY_NOT_ITALIAN_ENTITY_H
 #include "SFML/Graphics.hpp"
 #include <map>
+#include "../Types/Animation.h"
 
-struct Animation;
 enum class CollisionSide {
     Left,
     Right,
@@ -19,7 +19,8 @@ enum class CollisionSide {
 class Entity {
 public:
     Entity();
-    void update(float deltaTime);
+
+    virtual void update(float deltaTime);
     void draw(sf::RenderTarget& target);
     void addAnimation(const std::string& name, const Animation& animation);
     void playAnimation(const std::string& name);

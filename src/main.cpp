@@ -1,11 +1,13 @@
+#include <ranges>
+#include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include <map>
+#include <utility>
 #include "Objects/Entity.h"
 #include "Objects/Goomba.h"
 #include "Objects/Player.h"
-#include "SFML/Graphics.hpp"
-#include "Types/Animation.h"
-
+#include "Types/Tile.h"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "Totally Not Italian");
@@ -16,22 +18,24 @@ int main() {
     Player john;
     Goomba goomba;
 
-    std::vector<sf::RectangleShape> collideables;
+    sf::Texture groundTexture("assets/textures/area/sheet_mario.png");
 
-    sf::RectangleShape floor;
-    floor.setSize({256,16});
-    floor.setPosition({-128,0});
-    collideables.push_back(floor);
+    Tile groundTile;
+    groundTile.setCollideable();
+    groundTile.setTexture(groundTexture);
 
-    sf::RectangleShape wall1;
-    wall1.setSize({16,16});
-    wall1.setPosition({-128,-16});
-    collideables.push_back(wall1);
+    std::map<std::pair<int, int>, Tile> level;
 
-    sf::RectangleShape wall2;
-    wall2.setSize({16,16});
-    wall2.setPosition({112,-16});
-    collideables.push_back(wall2);
+    for (int x = 0; x < 16; x++) {
+        groundTile.setPosition({x*16 - 128,0});
+        level[{x*16, 0}] = groundTile;
+    }
+
+    groundTile.setPosition({-64,-16});
+    level[{-64,-16}] = groundTile;
+
+    groundTile.setPosition({64,-16});
+    level[{64,-16}] = groundTile;
 
     sf::Clock clock;
 
@@ -47,17 +51,17 @@ int main() {
         goomba.update(deltaTime);
         john.update(deltaTime);
 
-        for (const auto& collideable : collideables) {
-            goomba.checkAndCollide(collideable.getGlobalBounds());
-            john.checkAndCollide(collideable.getGlobalBounds());
+        for (const auto &tile: level | std::views::values) {
+            goomba.checkAndCollide(sf::FloatRect(tile.getBounds()));
+            john.checkAndCollide(sf::FloatRect(tile.getBounds()));
         }
 
         window.clear(sf::Color({192,192,255}));
         goomba.draw(window);
         john.draw(window);
 
-        for (const auto& collideable : collideables) {
-            window.draw(collideable);
+        for (const auto &tile: level | std::views::values) {
+            tile.draw(window);
         }
 
         window.display();

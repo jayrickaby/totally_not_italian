@@ -77,7 +77,7 @@ void Player::preMoveY(float deltaTime) {
         velocity.y -= JUMP_STRENGTH;
         setGrounded(false);
         tryToJump = false;
-        snd_jump.play();
+        //snd_jump.play();
     }
     else if (!grounded) {
         playAnimation("jump");

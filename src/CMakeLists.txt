@@ -6,5 +6,7 @@ add_executable(totally_not_italian main.cpp
         Types/Animation.h
         Objects/Entity.cpp
         Objects/Entity.h
+        Types/Tile.h
+        Types/Tile.cpp
 )
 

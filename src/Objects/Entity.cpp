@@ -50,19 +50,20 @@ void Entity::moveY(float deltaTime) {
 }
 
 void Entity::draw(sf::RenderTarget& target) {
-    // sf::RectangleShape bbRect;
-    // bbRect.setSize(boundingBox.size);
-    // bbRect.setPosition(boundingBox.position);
-    // bbRect.setFillColor(sf::Color::Blue);
-    // target.draw(bbRect);
+    // sf::RectangleShape bounds;
+    // bounds.setPosition(sf::Vector2f(boundingBox.position));
+    // bounds.setSize(sf::Vector2f(boundingBox.size));
+    // bounds.setFillColor(sf::Color::Blue);
+    //
+    // sf::CircleShape origin;
+    // origin.setOrigin(sprite.getOrigin());
+    // origin.setPosition(sprite.getPosition() + sprite.getOrigin());
+    // origin.setRadius(1);
+    // origin.setFillColor(sf::Color::Red);
 
+    // target.draw(bounds);
     target.draw(sprite);
-
-    // sf::CircleShape originCirc;
-    // originCirc.setRadius(2);
-    // originCirc.setPosition({sprite.getPosition().x + sprite.getOrigin().x, sprite.getPosition().y + sprite.getOrigin().y});
-    // originCirc.setFillColor(sf::Color::Red);
-    // target.draw(originCirc);
+    // target.draw(origin);
 }
 
 void Entity::addAnimation(const std::string& name, const Animation& animation) {
