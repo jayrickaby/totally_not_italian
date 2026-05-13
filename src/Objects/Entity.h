@@ -38,7 +38,7 @@ public:
     void setDirection(int newDirection);
     void setGrounded(bool state);
     void setSpeed(float newSpeed);
-    void setTexture(const std::string& path);
+    void setTexture(const sf::Texture* texture);
 
 protected:
     void moveX(float deltaTime);
@@ -55,7 +55,6 @@ protected:
 
 private:
     // Appearance
-    sf::Texture texture;
     sf::Sprite sprite;
 
     std::map<std::string, Animation> animations;

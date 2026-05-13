@@ -4,6 +4,8 @@
 
 #include <map>
 #include <utility>
+
+#include "Managers/AssetManager.h"
 #include "Objects/Entity.h"
 #include "Objects/Goomba.h"
 #include "Objects/Player.h"
@@ -15,14 +17,16 @@ int main() {
 
     window.setView(camera);
 
+    AssetManager assetManager;
+
     Player john;
     Goomba goomba;
 
-    sf::Texture groundTexture("assets/textures/area/sheet_mario.png");
+    sf::Texture* groundTexture(AssetManager::getTexture("area/sheet_mario.png"));
 
     Tile groundTile;
     groundTile.setCollideable();
-    groundTile.setTexture(groundTexture);
+    groundTile.setTexture(*groundTexture);
 
     std::map<std::pair<int, int>, Tile> level;
 

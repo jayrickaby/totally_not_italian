@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 
+#include "../Managers/AssetManager.h"
 #include "../Types/Animation.h"
 
 #include <algorithm>
@@ -15,8 +16,7 @@ Entity::Entity() :
     direction(0),
     boundingBox({0.f,0.f}, sprite.getLocalBounds().size),
     velocity({0,0}),
-    texture("assets/textures/dev/missing.png"),
-    sprite(texture),
+    sprite(*AssetManager::getTexture("dev/missing.png")),
     GRAVITY(900),
     speed(50.f){}
 
@@ -177,8 +177,8 @@ void Entity::setSpeed(float newSpeed) {
     speed = newSpeed;
 }
 
-void Entity::setTexture(const std::string& path) {
-    texture.loadFromFile(path);
+void Entity::setTexture(const sf::Texture* texture) {
+    sprite.setTexture(*texture);
 }
 
 void Entity::setDirection(int newDirection) {

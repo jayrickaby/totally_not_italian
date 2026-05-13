@@ -8,5 +8,7 @@ add_executable(totally_not_italian main.cpp
         Objects/Entity.h
         Types/Tile.h
         Types/Tile.cpp
+        Managers/AssetManager.cpp
+        Managers/AssetManager.h
 )
 

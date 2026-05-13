@@ -4,8 +4,7 @@
 
 #include "Player.h"
 
-#include <iostream>
-
+#include "../Managers/AssetManager.h"
 #include "../Types/Animation.h"
 
 
@@ -17,7 +16,7 @@ tryToJump(false),
 buf_jump("assets/sounds/jump.mp3"),
 snd_jump(buf_jump){
 
-    setTexture("assets/textures/john/sheet_john_main.png");
+    setTexture(AssetManager::getTexture("john/sheet_john_main.png"));
 
     Animation idle;
     idle.frames.emplace_back(sf::IntRect({0,0},{24,24}));

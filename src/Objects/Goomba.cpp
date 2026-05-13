@@ -5,11 +5,12 @@
 #include "Goomba.h"
 
 #include "../Types/Animation.h"
+#include "../Managers/AssetManager.h"
 
 Goomba::Goomba() {
     setDirection(1);
     setSpeed(25.f);
-    setTexture("assets/textures/enemies/sheet_goomba.png");
+    setTexture(AssetManager::getTexture("enemies/sheet_goomba.png"));
 
     Animation idle;
     idle.frames.emplace_back(sf::IntRect({0,0}, {16,16}));
