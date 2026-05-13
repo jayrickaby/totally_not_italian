@@ -26,7 +26,7 @@ int main() {
 
     Tile groundTile;
     groundTile.setCollideable();
-    groundTile.setTexture(*groundTexture);
+    groundTile.setTexture(groundTexture);
 
     std::map<std::pair<int, int>, Tile> level;
 

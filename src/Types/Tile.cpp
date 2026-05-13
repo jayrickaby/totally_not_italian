@@ -4,11 +4,11 @@
 
 #include "Tile.h"
 
+#include "../Managers/AssetManager.h"
 #include "SFML/Graphics.hpp"
 
 Tile::Tile() :
-texture("assets/textures/dev/missing.png"),
-sprite(texture),
+sprite(*AssetManager::getTexture("dev/missing.png")),
 boundingBox({0,0}, {16,16}),
 isCollideable(false) {
     setPosition({0,0});
@@ -49,7 +49,7 @@ void Tile::setPosition(const sf::Vector2i &position) {
     sprite.setPosition(center);
 }
 
-void Tile::setTexture(const sf::Texture &texture, sf::IntRect rect) {
-    sprite.setTexture(texture);
+void Tile::setTexture(const sf::Texture* texture, const sf::IntRect& rect) {
+    sprite.setTexture(*texture);
     sprite.setTextureRect(rect);
 }

@@ -16,9 +16,9 @@ public:
     sf::IntRect getBounds() const;
 
     // Setters
-    void setCollideable(bool collideable = true);
+    void setCollideable(bool collideable = false);
     void setPosition(const sf::Vector2i& position);
-    void setTexture(const sf::Texture& texture, sf::IntRect rect = {{0,0}, {16,16}});
+    void setTexture(const sf::Texture* texture, const sf::IntRect& rect = {{0,0}, {16,16}});
 
 private:
     sf::Texture texture;
