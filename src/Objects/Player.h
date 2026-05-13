@@ -15,7 +15,7 @@ class Player : public Entity {
 public:
     Player();
 
-    void update(float deltaTime);
+    void update(float deltaTime) override;
 
 private:
     // Physics
